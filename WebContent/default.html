@@ -3,23 +3,22 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Chat Room</title>
+  <script type="text/javascript">
+	var websocket=new WebSocket("ws://localhost:9090/ChatRoom/ChatRoomServerEndpoit");
+	websocket.onmessage=function processMessage(message){
+		var jsonData=JSON.parse(message.data);
+		if (jsonData.message !=null) messageTextArea.value+=jsonData.message+"\n";
+	}
+	function sendMessage(){
+		websocket.send(messageText.value);
+		messageText.value="";
+	}
+</script>
 </head>
 <body>
- <form action="#">
-	
-   <input id="textMessage" type="text">
-   <input onclick="sendMessage();" type="button" value="Send Message">
-   
- </form>
- <br>
- <textarea rows="10" cols="50" id="messagesTextArea"></textarea>
- <script type="text/javascript">
- 	var webSocket=new webSocket("ws://localhost:9090/ChatRoom/ServerEndPointDemo");
- 	var messagesTextArea =document.getElementById("messagesTextArea");
- 	webSocket.onopen=function(message){}
- </script>
- 
- 
- 
+  	<textarea id="messageTextArea" rows="10" cols="50" readonly="readonly"></textarea><br>
+ 	<input type="text" id="messageText" size="50"/>
+ 	<input type="button" value="send" onclick="sendMessage();"/>
+
 </body>
 </html>

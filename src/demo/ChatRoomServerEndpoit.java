@@ -56,5 +56,4 @@ public class ChatRoomServerEndpoit {
 		}
 		return null;
 	}
-
 }
